@@ -4,18 +4,19 @@ import { useNewsContext } from '../Context/NewsContext.jsx';
 
 const Category = ({className}) => {
     const categories = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
-     const {setnews, fetchNews} = useNewsContext();
+     const {setnews, fetchNews,setCurrentPage} = useNewsContext();
     const handleClickCategory = async (e) => {
         const cat = e.target.value
         const data =await fetchNews(`/everything?q=${cat}`);
         setnews(data.articles);
+        setCurrentPage(1)
         console.log("check cate",cat);
     }
 
    return (
          <div className={`bg-base-200 ${className}`}>
            <Wrapper>
-            <div className="flex flex-nowrap justify-start gap-4 py-4 shadow-sm overflow-x-auto hide-scrollbar md:overflow-x-visible md:justify-center">
+            <div className="flex flex-nowrap justify-start gap-4 py-2  overflow-x-auto hide-scrollbar md:overflow-x-visible md:justify-center">
         {   
             categories.map((category)=> {
                 return (

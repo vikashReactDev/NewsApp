@@ -9,10 +9,12 @@ const NewsContext = createContext();
 const NewsProvider = ({ children }) => {
     const [news, setnews] = useState([]);
     const [loading, setLoading] = useState(false); 
+    const [currentPage, setCurrentPage] = useState(1)
 
     const fetchNews = async (url='/everything?q=india') => {
         setLoading(true);
         try {
+            
             const res = await api.get(`${url}&apiKey=${import.meta.env.VITE_NEWS_API}`);
             setLoading(false);
              return res.data;
@@ -40,6 +42,8 @@ const NewsProvider = ({ children }) => {
         fetchTopHeadlines,
         loading,
         setLoading,
+        currentPage,
+        setCurrentPage,
     }
 
 

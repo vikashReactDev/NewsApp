@@ -4,7 +4,7 @@ import {FaTwitter, FaYoutube, FaFacebook} from "react-icons/fa";
 import { useNewsContext } from "../Context/NewsContext.jsx";
 
 const Footer = () => {
-  const { fetchNews, setnews } = useNewsContext();
+  const { fetchNews, setnews,setCurrentPage } = useNewsContext();
 
   const categories = [
     "business",
@@ -20,6 +20,7 @@ const Footer = () => {
     try {
       const data = await fetchNews(`/everything?q=${category}`);
       setnews(data?.articles || []);
+      setCurrentPage(1);
     } catch (error) {
       console.error(error);
     }
@@ -29,27 +30,27 @@ const Footer = () => {
     <Wrapper>
       <footer className="bg-base-200 text-base-content px-4 py-8">
         
-        {/* Categories */}
+      
         <div className="flex flex-col items-center gap-6">
           <nav className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleClickCategory(category)}
-                className="btn btn-ghost btn-sm capitalize"
+                className="link link-hover capitalize"
               >
                 {category}
               </button>
             ))}
           </nav>
 
-          {/* Social Icons */}
+          
           <div className="flex gap-6 text-2xl">
             <FaTwitter className="cursor-pointer hover:text-primary transition" />
             <FaYoutube className="cursor-pointer hover:text-red-500 transition" />
             <FaFacebook className="cursor-pointer hover:text-blue-600 transition" />
           </div>
-          {/* Copyright */}
+          
           <p className="text-sm text-center opacity-70">
             © {new Date().getFullYear()} — All rights reserved by{" "}
             <span className="font-semibold">Baghel Vikash</span>
